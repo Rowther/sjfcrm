@@ -10,10 +10,18 @@ const axiosInstance = axios.create({
   }
 });
 
-// Add token from localStorage if exists
-const token = localStorage.getItem('token');
-if (token) {
-  axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
+// Add request interceptor to include token from localStorage
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export default axiosInstance;
