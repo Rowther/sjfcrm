@@ -193,14 +193,13 @@ const CreateWorkOrder = () => {
                 <div>
                   <Label htmlFor="assigned_to_id">Assign to Technician</Label>
                   <Select
-                    value={formData.assigned_to_id}
+                    value={formData.assigned_to_id || undefined}
                     onValueChange={(value) => setFormData({ ...formData, assigned_to_id: value })}
                   >
                     <SelectTrigger data-testid="wo-technician-select">
                       <SelectValue placeholder="Select technician (optional)" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">No assignment</SelectItem>
                       {technicians.map((tech) => (
                         <SelectItem key={tech.id} value={tech.id}>
                           {tech.name}
