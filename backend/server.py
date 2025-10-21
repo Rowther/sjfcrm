@@ -271,7 +271,7 @@ async def get_current_user(request: Request) -> User:
     
     raise HTTPException(status_code=401, detail="Not authenticated")
 
-async def require_role(allowed_roles: List[UserRole]):
+def require_role(allowed_roles: List[UserRole]):
     async def role_checker(current_user: User = Depends(get_current_user)):
         if current_user.role not in allowed_roles:
             raise HTTPException(status_code=403, detail="Insufficient permissions")
